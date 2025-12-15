@@ -1,4 +1,11 @@
-    let editingProduct = null; 
+    let editingProduct = null;
+
+    document.querySelector('.products a').classList.add('active');
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("deletePopup").style.display = "none";
+    document.getElementById("pprice").addEventListener("input", function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 
     document.getElementById("add-button").onclick = () => {
         editingProduct = null;

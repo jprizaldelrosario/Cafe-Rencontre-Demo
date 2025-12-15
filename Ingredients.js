@@ -1,6 +1,22 @@
 let editingIngredient = null;
 let deletingIngredient = null;
 
+document.querySelector('.Ingredients a').classList.add('active');
+document.getElementById("popup").style.display = "none";
+document.getElementById("deletePopup").style.display = "none";
+document.getElementById("quantity").addEventListener("input", function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+document.querySelector(".search-bar").addEventListener("input", function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const ingredientItems = document.querySelectorAll(".ingredient-item");
+
+    ingredientItems.forEach(item => {
+        const ingredientName = item.querySelector(".ingredient-name").textContent.toLowerCase();
+        item.style.display = ingredientName.includes(searchTerm) ? "block" : "none";
+    });
+});
+
 document.getElementById("add-button").onclick = () => {
   editingIngredient = null;
   clearFields();

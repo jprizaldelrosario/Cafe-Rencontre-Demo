@@ -87,6 +87,34 @@ font-weight: 600;
   color: #6B7280;
   cursor: pointer;
   font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-bar li a.active {
+  color: #532C04;
+  font-weight: 600;
+}
+
+.nav-bar li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #532C04;
+  border-radius: 2px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 .products {
   display: flex;
@@ -466,4 +494,197 @@ color: #8B6F47;
   font-size: 14px;
   align-items: center;
   gap: 8px;
+}
+
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 550px;
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  font-family: "Inter", sans-serif;
+}
+
+.close-icon {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.close-icon:hover {
+  color: #000;
+}
+
+.modal-content h2 {
+  font-family: "Montserrat", sans-serif;
+  color: #532C04;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 30px;
+  margin-bottom: 20px;
+}
+
+.info-row {
+  display: flex;
+  gap: 5px;
+  font-size: 13px;
+}
+
+.info-row .label {
+  font-weight: 700;
+  color: #8B6F47;
+}
+
+.info-row .value {
+  color: #666;
+}
+
+.status-text {
+  font-weight: 700;
+  color: #A56F00 !important; 
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #8B6F47;
+  margin-bottom: 10px;
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.items-table th {
+  background-color: #F5F5F5;
+  color: #532C04;
+  font-weight: 600;
+  padding: 10px;
+  text-align: left;
+}
+
+.items-table td {
+  padding: 12px 10px;
+  background-color: #F5F5F5; 
+  color: #666;
+}
+
+.items-table .text-center { text-align: center; }
+.items-table .text-right { text-align: right; }
+
+.items-table tfoot td {
+  border-top: 1px solid #AEAAA5;
+  background-color: #F5F5F5;
+  font-weight: bold;
+  padding-top: 12px;
+}
+
+.total-label {
+  color: #532C04;
+}
+
+.total-amount {
+  text-align: right;
+  color: #666;
+}
+
+.payment-proof-container {
+  background-color: #F5F5F5;
+  border-radius: 6px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.pp-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #8B6F47;
+  margin: 0 0 5px 0;
+}
+
+.pp-file {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.view-doc-btn {
+  background: transparent;
+  border: 1px solid #532C04;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: #532C04;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modal-actions button {
+  padding: 8px 30px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 120px;
+}
+
+.btn-reject {
+  background: white;
+  border: 1px solid #FF0000;
+  color: #FF0000;
+}
+
+.btn-approve {
+  background: #70593A; 
+  border: none;
+  color: white;
+}
+
+.btn-close {
+  background: white;
+  border: 1px solid #ccc;
+  color: #532C04;
 }
