@@ -1,27 +1,5 @@
-// const API_BASE_URL = 'http://localhost:8001/backend/api';
+    let editingProduct = null; 
 
-let editingProduct = null;
-let deletingProduct = null;
-let uploadedImageUrl = null;
-
-document.addEventListener('DOMContentLoaded', function() {
-    initializePage();
-    loadProducts();
-});
-
-function initializePage() {
-    document.querySelector('.products a').classList.add('active');
-    
-    document.getElementById("popup").style.display = "none";
-    document.getElementById("deletePopup").style.display = "none";
-    
-    document.getElementById("pprice").addEventListener("input", function(e) {
-        this.value = this.value.replace(/[^0-9.]/g, '');
-    });
-    
-    // Image upload handler
-    document.getElementById("pimage").addEventListener("change", handleImageUpload);
-    
     document.getElementById("add-button").onclick = () => {
         editingProduct = null;
         clearFields();

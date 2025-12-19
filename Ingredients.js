@@ -3,152 +3,73 @@
 let editingIngredient = null;
 let deletingIngredient = null;
 
-document.addEventListener('DOMContentLoaded', function() {
-    initializePage();
-    loadIngredients();
-    checkLowStock();
-});
+document.getElementById("add-button").onclick = () => {
+  editingIngredient = null;
+  clearFields();
+  document.querySelector(".popup-content h2").textContent = "Add Ingredients";
+  document.getElementById("confirmPopup").textContent = "Confirm";
+  document.getElementById("popup").style.display = "flex";
+};
 
-async function checkLowStock() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/inventory.php?action=low_stock`, {
-            credentials: 'include'
-        });
-        const data = await response.json();
-        
-        if (data.success && data.data && data.data.length > 0) {
-            showLowStockBanner(data.data);
-        }
-    } catch (error) {
-        console.error('Error checking low stock:', error);
-    }
+
+document.getElementById("closePopup").onclick = closePopup;
+document.getElementById("cancelPopup").onclick = closePopup;
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
 }
 
-function showLowStockBanner(items) {
-    const existingBanner = document.getElementById('lowStockBanner');
-    if (existingBanner) existingBanner.remove();
-    
-    const banner = document.createElement('div');
-    banner.id = 'lowStockBanner';
-    banner.style.cssText = `
-        background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
-        color: white;
-        padding: 12px 20px;
-        margin: 0 auto 20px;
-        width: 93%;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
-    `;
-    
-    const criticalCount = items.filter(i => i.status === 'CRITICAL').length;
-    const lowCount = items.filter(i => i.status === 'LOW').length;
-    
-    banner.innerHTML = `
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">⚠️</span>
-            <div>
-                <strong>Low Stock Alert!</strong>
-                <span style="margin-left: 10px; opacity: 0.9;">
-                    ${criticalCount > 0 ? `${criticalCount} critical` : ''}
-                    ${criticalCount > 0 && lowCount > 0 ? ', ' : ''}
-                    ${lowCount > 0 ? `${lowCount} low` : ''}
-                </span>
-            </div>
-        </div>
-        <button onclick="this.parentElement.remove()" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px 15px; border-radius: 4px; cursor: pointer;">
-            Dismiss
-        </button>
-    `;
-    
-    const container = document.querySelector('.ingredients-management-card');
-    const searchContainer = document.getElementById('search');
-    if (container && searchContainer) {
-        container.insertBefore(banner, searchContainer);
-    }
+
+document.getElementById("closeDeletePopup").onclick = closeDeletePopup;
+document.getElementById("cancelDelete").onclick = closeDeletePopup;
+
+function closeDeletePopup() {
+  document.getElementById("deletePopup").style.display = "none";
+  deletingIngredient = null;
 }
 
-function initializePage() {
-    document.querySelector('.Ingredients a').classList.add('active');
-    
-    document.getElementById("popup").style.display = "none";
-    document.getElementById("deletePopup").style.display = "none";
-    
-    document.getElementById("quantity").addEventListener("input", function(e) {
-        this.value = this.value.replace(/[^0-9.]/g, '');
-    });
-    
-    document.getElementById("add-button").onclick = () => {
-        editingIngredient = null;
-        clearFields();
-        document.querySelector(".popup-content h2").textContent = "Add Ingredients";
-        document.getElementById("confirmPopup").textContent = "Confirm";
-        document.getElementById("popup").style.display = "flex";
-    };
-    
-    document.getElementById("closePopup").onclick = closePopup;
-    document.getElementById("cancelPopup").onclick = closePopup;
-    
-    document.getElementById("closeDeletePopup").onclick = closeDeletePopup;
-    document.getElementById("cancelDelete").onclick = closeDeletePopup;
-    
-    const searchBar = document.querySelector(".search-bar");
-    if (searchBar) {
-        searchBar.addEventListener("input", debounce(function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            filterIngredients(searchTerm);
-        }, 300));
-    }
+function clearFields() {
+  document.getElementById("ingname").value = "";
+  document.getElementById("unit").value = "";
+  document.getElementById("pack").value = "";
+  document.getElementById("quantity").value = "";
 }
 
-async function loadIngredients() {
-    try {
-        showLoading(true);
-        
-        const response = await fetch(`${API_BASE_URL}/ingredients.php`, {
-            credentials: 'include'
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        if (data.success) {
-            renderIngredients(data.data || data);
-        } else {
-            showError('Failed to load ingredients: ' + data.message);
-        }
-    } catch (error) {
-        console.error('Error loading ingredients:', error);
-        renderIngredients([]);
-    } finally {
-        showLoading(false);
-    }
-}
+document.getElementById("confirmPopup").onclick = () => {
+  const name = document.getElementById("ingname").value;
+  const unit = document.getElementById("unit").value;
+  const pack = document.getElementById("pack").value;
+  const quantity = document.getElementById("quantity").value;
 
-function renderIngredients(ingredients) {
-    const container = document.getElementById("IngredientsList");
-    if (!container) return;
+  if (!name || !unit || !pack || !quantity) {
+      alert("Please fill all fields");
+      return;
+  }
+
+  if (editingIngredient) {
+      editingIngredient.querySelector(".ingredient-name").textContent = name;
+      editingIngredient.querySelector(".bottles-count").textContent = pack;
+      editingIngredient.querySelector(".available-quantity").textContent = quantity;
+      editingIngredient.querySelector(".available-unit").textContent = unit;
     
-    container.innerHTML = '';
-    
-    if (!ingredients || ingredients.length === 0) {
-        container.innerHTML = `
-            <div class="no-ingredients">
-                <p>No ingredients found. Click "Add Ingredients" to create one.</p>
-            </div>
-        `;
-        return;
-    }
-    
-    ingredients.forEach(ingredient => {
-        addIngredientToDOM(ingredient);
-    });
-}
+      const percentage = calculatePercentage(pack, quantity);
+      editingIngredient.querySelector(".progress-fill").style.width = percentage + "%";
+      editingIngredient.querySelector(".percentage-text").textContent = Math.round(percentage) + "%";
+      
+      editingIngredient = null;
+      closePopup();
+      return;
+  }
+  addIngredient(name, unit, pack, quantity);
+  closePopup();
+};
+
+document.getElementById("confirmDelete").onclick = () => {
+  if (deletingIngredient) {
+    deletingIngredient.remove();
+    closeDeletePopup();
+  }
+};
 
 function calculatePercentage(bottles, available) {
     if (bottles <= 0) return 0;
