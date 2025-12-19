@@ -1,23 +1,34 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
-    <link rel="stylesheet" href="Product.css">
-    <link rel="stylesheet" href="Orders.css">
-    <link rel="stylesheet" href="Ingredients.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lily+Script+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,700;1,700&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product</title>
+  <link rel="stylesheet" href="Ingredients.css">
+  <link rel="stylesheet" href="Product.css">
+  <link rel="stylesheet" href="Orders.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,700;1,700&family=Quicksand:wght@300..700&family=Roboto+Condensed&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital@0;1&display=swap" rel="stylesheet">
-  <body>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lily+Script+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,700;1,700&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital@0;1&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,700;1,700&family=Quicksand:wght@300..700&family=Roboto+Condensed&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital@0;1&display=swap"
+    rel="stylesheet">
+  <link rel="shortcut icon" href="assets/Logo.png" type="image/x-icon">
+
+
+<body>
   </head>
+
   <body>
 
     <div class="dashborad-card">
@@ -27,23 +38,25 @@
           <p class="Text-title">Cafe Rencontre</p>
         </div>
         <button id="back-button" class="back-btn">
-          <span class="back-icon"><img src="/Background-Image/back-btn.png" alt=""></span>
-          <p>Back to Menu</p>
+          <span class="back-icon"><img src="/Background-Image/Lock Icon.svg" alt=""></span>
+          <p>Log out</p>
         </button>
       </div>
       <div class="container-bar">
         <ul class="nav-bar">
           <div class="products">
             <img src="/Background-Image/Box.png" alt="">
-            <li><a href="Products">Products</a></li>
+            <li><a href="Product.html" class="active">Products</a></li>
           </div>
           <div class="Ingredients">
             <img src="/Background-Image/storage.png" alt="">
             <li><a href="Ingredients.html">Ingredients</a></li>
+            <span class="ingredient-badge" id="ingredientBadge"></span>
           </div>
           <div class="cart">
             <img src="/Background-Image/cart.png" alt="">
             <li><a href="Orders.html">Orders</a></li>
+            <span class="order-badge" id="orderBadge"></span>
           </div>
           <div class="report">
             <img src="/Background-Image/report.png" alt="">
@@ -52,9 +65,9 @@
         </ul>
       </div>
 
-      
+
       <div class="product-management-card">
-        <div class="title-add-products"> 
+        <div class="title-add-products">
           <div class="title">
             <p>Product Management</p>
           </div>
@@ -66,22 +79,23 @@
         <div id="search" class="search-container">
           <span><img id="search-icon" class="icon" src="/Background-Image/magnifying glass.png" alt=""></span>
           <input class="search-bar" type="text" placeholder="Search">
-          <span><img id="filter-icon" class="icon" src="/Background-Image/filter icon.png" alt=""></span>
         </div>
-        
+
         <div id="productList" class="product-list"></div>
         <div id="popup" class="popup-container">
           <div class="popup-content">
             <span id="closePopup" class="close-btn">&times;</span>
             <h2>Add Product</h2>
-          
+
             <label class="title">Product Name:</label>
             <input type="text" id="pname" class="input-box-name">
 
             <label class="title">Category:</label>
             <input list="option" id="pcategory" class="input-box-category">
             <datalist id="option">
-              <option value="Brewed Based"></option>
+              <option value="brewed">Brewed Based</option>
+              <option value="milk">Milk Series</option>
+              <option value="soda">Fruit Soda</option>
             </datalist>
 
             <label class="title">Description:</label>
@@ -90,35 +104,43 @@
             <label class="title">Price:</label>
             <input type="text" id="pprice" class="input-box-number">
 
+            <label class="title">Product Image:</label>
+            <div class="image-upload-container">
+              <input type="file" id="pimage" accept="image/*" class="image-input">
+              <div id="imagePreview" class="image-preview"></div>
+            </div>
+
             <div class="popup-actions">
               <button id="cancelPopup" class="cancel-btn">Cancel</button>
               <button id="confirmPopup" class="confirm-btn">Confirm</button>
             </div>
           </div>
         </div>
-        <div id="deletePopup" class="popup">
-            <div class="popup-content">
-                <span id="closeDeletePopup" class="close">&times;</span>
-                <h2>Delete Product</h2>
-                
-                <div class="delete">
-                    <p>Are you sure you want to delete <strong id="deleteProductName"></strong>?</p>
-                    <p>This action cannot be undone.</p>
-                </div>
-                
-                <div class="popup-buttons">
-                  <div class="Delete-btn">
-                    <button id="confirmDelete" class="confirm-btn-delete">Delete</button>
-                  </div>
-                  <div class="Cancel-btn">
-                    <button id="cancelDelete" class="cancel">Cancel</button>
-                  </div>
-                </div>
+        <div id="deletePopup" class="popup-container">
+          <div class="popup-content">
+            <span id="closeDeletePopup" class="close">&times;</span>
+            <h2>Delete Product</h2>
+
+            <div class="delete">
+              <p>Are you sure you want to delete <strong id="deleteProductName"></strong>?</p>
+              <p>This action cannot be undone.</p>
             </div>
+
+            <div class="popup-buttons">
+              <div class="Delete-btn">
+                <button id="confirmDelete" class="confirm-btn-delete">Delete</button>
+              </div>
+              <div class="Cancel-btn">
+                <button id="cancelDelete" class="cancel">Cancel</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    
-  <script src="Product.js"></script>
+    <script src="auth.js"></script>
+
+    <script src="Product.js"></script>
   </body>
-  </html> 
+
+</html>
